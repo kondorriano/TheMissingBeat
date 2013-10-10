@@ -1,0 +1,91 @@
+#pragma strict
+
+import System.IO;
+private var path : String;
+private var nick : boolean = true;
+private var finish : boolean = false;
+
+     
+function Start () {
+
+	path = Application.dataPath + "/ranking.txt";
+}
+
+function Rankea(arr : Array) {
+	var tiempo : float = arr[0];
+	var nombre : String = arr[1];
+	var sr = new StreamReader(path);
+    var fileContents = sr.ReadToEnd();
+    sr.Close();
+    System.IO.File.WriteAllText(path, "");
+    var lines = fileContents.Split("\n"[0]);
+    var escrito : boolean = false;
+    var topTen : boolean = false;
+    var cont : int = 0;
+    
+    for (line in lines) {
+    	if(!escrito) {
+    		var space : String = "\n";
+    		if(cont == 9) space = "";
+	    	var punt = line.Split(":"[0]);
+	    	for(p in punt)	{
+	    		if(!nick) {
+	    			var t = parseFloat(p);
+	    			if(t <= tiempo) Escribe(line+space);
+	    			else {
+	    				Escribe(nombre+":"+tiempo+space);
+	    				escrito = true;
+	    				break;
+	    			}
+	    			    		
+	    		}
+	    		nick = !nick;    		
+	    	}
+	    	if(escrito) {
+	    		++cont;
+		    	if(cont == 10) {
+		    		topTen = true;
+		    		break;
+		    	}
+		    	Escribe(line+space);
+	    	}
+    	} else Escribe(line+space);
+    	++cont;
+    	if(cont == 10) {
+    		topTen = true;
+    		break;
+    	}
+    }
+    if(!escrito && !topTen) {
+    	if(cont == 9) Escribe(nombre+":"+tiempo);
+    	else Escribe(nombre+":"+tiempo+"\n");
+    }
+
+}
+
+function OnGUI() {
+	if(finish) {
+		var sr = new StreamReader(path);
+	    var fileContents = sr.ReadToEnd();
+	    sr.Close();
+	    var lines = fileContents.Split("\n"[0]);
+	    var i : int = 1;
+	    for (line in lines) {
+	    	var punt = line.Split(":"[0]);
+	    	var nombre : String = i+". ";
+	    	for(p in punt)	{
+	    		nombre = nombre + p + " ";
+	    	}
+	    	GUI.Label(Rect(10,90+i*30,200,20), nombre);
+	    	++i;
+	    }
+	}
+}
+
+function Escribe(linea : String) {
+	System.IO.File.AppendAllText(path, linea);
+}
+
+function Finish() {
+	finish = true;
+}
