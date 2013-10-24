@@ -4,6 +4,9 @@
 
 
 function OnTriggerEnter(c : Collider) {
-	//Debug.Log(c.gameObject);
-	//c.SendMessage("Beat", 2);
+	c.SendMessage("changeBeat", true);
+}
+
+function OnTriggerExit(c : Collider) {
+	c.SendMessage("changeBeat", false);
 }
