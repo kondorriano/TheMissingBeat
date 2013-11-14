@@ -10,8 +10,12 @@ private var escala : Vector3;
 /**NEW**/
 public var beatWave : Rigidbody;
 
+private var bWTrigger : GameObject;
+
 function Start() {
 	escala = transform.localScale;
+	bWTrigger = GameObject.FindGameObjectWithTag("waveTrigger");
+
 }
 
 
@@ -37,6 +41,8 @@ function Beat() {
 	heartbeat = true;
 	transform.localScale += Vector3(1,1,1)*expand;
 	var bW : Rigidbody = Instantiate(beatWave, transform.position, beatWave.transform.rotation); //NEW
+	bWTrigger.SendMessage("setWave", bW.gameObject);
+
 	bW.velocity = transform.parent.rigidbody.velocity;//NEW
 	
 
