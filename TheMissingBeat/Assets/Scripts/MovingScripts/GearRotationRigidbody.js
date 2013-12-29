@@ -1,6 +1,11 @@
 #pragma strict
 
 //El script que hace rotar diferentes engranajes
+//NewGamePlay
+public var activated : boolean = true;
+private var beatActivation : boolean;
+
+//EndNewGameplay
 
 public var freq : int = 1;
 public var offset : int = 0;
@@ -24,6 +29,9 @@ function Start () {
 	grados = 360.0/(dientes*2);
 	initRotation = transform.rotation;
 	nextRotation = initRotation;
+	//NewGP
+	beatActivation = activated;
+
 }
 
 function Update () {
@@ -31,7 +39,7 @@ function Update () {
 }
 
 function Beat(beat : int) {
-	if(activate) {
+	if(activate && beatActivation) {
 		if ((beat + offset)%freq == 0) {
 			rotate = true;	
 			++cont;
@@ -39,8 +47,12 @@ function Beat(beat : int) {
 				nextRotation = initRotation;
 				cont = 0;
 			} else nextRotation = initRotation*Quaternion.Euler(0,0,sentido*cont*grados);
+			//NewGamePlay
 		}
+		
 	}
+	if((beatActivation != activated) && (beat + offset)%freq == 0) beatActivation = activated;
+
 }
 
 function ChangeFrequency(frequency : float) {
@@ -49,4 +61,8 @@ function ChangeFrequency(frequency : float) {
 
 function changeBeat(b : boolean){
 	activate = b;
+}
+
+function changeActivation(){
+	if(beatActivation == activated) beatActivation = !activated;
 }

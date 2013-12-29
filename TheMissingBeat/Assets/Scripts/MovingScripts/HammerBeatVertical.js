@@ -2,6 +2,11 @@
 
 //Mueve pistones verticalmente 
 
+//NewGamePlay
+public var activated : boolean = true;
+private var beatActivation : boolean;
+//EndNewGameplay
+
 public var freq : int = 1;
 public var offset : int = 0;
 
@@ -21,6 +26,9 @@ private var activate : boolean = false; //Todo lo relacionado con etso es nuevo
 function Start () {
 	originalHeight = transform.position.y;
 	originalPos = transform.position;
+	//NewGP
+	beatActivation = activated;
+
 }
 
 function FixedUpdate () {
@@ -38,7 +46,7 @@ function FixedUpdate () {
 }
 
 function Beat (beat : int) {
-	if(activate){
+	if(activate && beatActivation){
 		if ((beat + offset)%freq == 0) {
 			move = true;
 			
@@ -46,8 +54,12 @@ function Beat (beat : int) {
 			else wantedPos = originalPos;
 			
 			down = !down;
+			
+			//NewGamePlay
 		}
 	}
+	if((beatActivation != activated) && (beat + offset)%freq == 0) beatActivation = activated;
+
 }
 
 function OnDrawGizmos() {
@@ -63,4 +75,8 @@ function ChangeFrequency(frequency : float) {
 
 function changeBeat(b : boolean){
 	activate = b;
+}
+
+function changeActivation(){
+	if(beatActivation == activated) beatActivation = !activated;
 }

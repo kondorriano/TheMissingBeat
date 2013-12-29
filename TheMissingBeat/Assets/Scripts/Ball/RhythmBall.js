@@ -2,6 +2,7 @@
 
 //Script que escala el engranaje y lanza una onda
 
+public var freq : int = 1;
 public var speed : float = 8;
 public var expand : float = 2;
 private var heartbeat : boolean = false;
@@ -37,6 +38,19 @@ function Update () {
 	}
 }
 
+function Beat(beat : int) {
+	if ((beat)%freq == 0) {
+		heartbeat = true;
+		transform.localScale += Vector3(1,1,1)*expand;
+		var bW : Rigidbody = Instantiate(beatWave, transform.position, beatWave.transform.rotation); //NEW
+		bWTrigger.SendMessage("setWave", bW.gameObject);
+
+		bW.velocity = transform.parent.rigidbody.velocity;//NEW
+	}
+	
+
+}
+
 function Beat() {
 	heartbeat = true;
 	transform.localScale += Vector3(1,1,1)*expand;
@@ -47,3 +61,8 @@ function Beat() {
 	
 
 }
+
+function ChangeFrequency(frequency : float) {
+	freq = frequency;
+}
+
