@@ -12,8 +12,15 @@ Desktop.ini
 ## Unity
 #############
 
-obj
-Temp
+#Unity3D ignores
+
+TheMissingBeat/[Ll]ibrary/
+TheMissingBeat/[Tt]emp/
+TheMissingBeat/[Oo]bj/
+TheMissingBeat2D/[Ll]ibrary/
+TheMissingBeat2D/[Tt]emp/
+TheMissingBeat2D/[Oo]bj/
+
 *.tmproj
 *.csproj
 *.unityproj
@@ -22,25 +29,3 @@ Temp
 *.user
 *.pidb
 *.userprefs
-
-Library/*
-
-AnnotationManager
-assetDatabase3
-AssetImportState
-assetservercachev3
-AssetServerCacheV3
-AssetVersioning.db
-AudioManager.asset
-BuildPlayer.prefs
-BuildSettings.asset
-DynamicsManager.asset
-EditorSettings.asset
-EditorUserBuildSettings.asset
-expandedItems
-FailedAssetImports.txt
-guidmapper
-InspectorExpandedItems.asset
-MonoManager.asset
-NetworkManager.asset
-ScriptMapper
