@@ -6,6 +6,7 @@ private var finished : boolean = false;
 private var beatObjects : GameObject;
 private var ballObject : GameObject;
 private var beatsPerMinute : int = 90;
+public var timeFactor : float = 1;
 private var beatSamples : int = 44100*60/beatsPerMinute;
 
 public var timeOffset : float = 0;
@@ -42,6 +43,9 @@ function Start () {
 	beatObjects = GameObject.FindGameObjectWithTag("BeatMaster");
 	ballObject = GameObject.FindGameObjectWithTag("Gear");
 	audioM.Play();	
+	
+	beatsPerMinute *= timeFactor;
+	beatTime += timeOffset*(60.0/beatsPerMinute);
 }
 
 function Update () {
@@ -68,9 +72,7 @@ function Update () {
 
 function BroadcastBeat(beat : int) {
 	beatObjects.BroadcastMessage("Beat", beat);//OLD, TESTING
-	ballObject.SendMessage("Beat", beat);
-	
-	
+	//ballObject.SendMessage("Beat", beat);
 }
 
 function BroadcastFrequency(frequency : float)  {
@@ -80,7 +82,7 @@ function BroadcastFrequency(frequency : float)  {
 	changedFrequency = true;
 }
 
-function OnGUI() {
+/*function OnGUI() {
 	GUI.color = Color.white;
 	lifeTime = audioM.clip.length-audioM.time;
 	if (!finished) {
@@ -106,7 +108,7 @@ function OnGUI() {
 	}
 	
 
-}
+}*/
 
 function Finish() {
 	finishTime = timePlay-lifeTime;

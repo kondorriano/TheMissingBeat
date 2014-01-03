@@ -42,20 +42,20 @@ private var test : int = 0;
 
 function Update () {
 	if(Input.GetKeyDown(KeyCode.Space)) Beat(++test);
-	Debug.Log(test);
-	//transform.rotation = Quaternion.Slerp(transform.rotation, nextRotation, Time.deltaTime*speed);
+	transform.rotation = Quaternion.Slerp(transform.rotation, nextRotation, Time.deltaTime*speed);
 	
-	var nextStep : float  = transform.rotation.z + rigidbody2D.angularVelocity*Time.fixedDeltaTime;
+	/*var nextStep : float  = transform.rotation.z + rigidbody2D.angularVelocity*Time.fixedDeltaTime;
     var totalRotation : float = nextAngle - nextStep;
   	while ( totalRotation < -180 * Mathf.Deg2Rad ) totalRotation += 360 * Mathf.Deg2Rad;
  	while ( totalRotation >  180 * Mathf.Deg2Rad ) totalRotation -= 360 * Mathf.Deg2Rad;
   	
   	var desiredAngularVelocity : float = totalRotation/Time.fixedDeltaTime;
   	var torque : float = desiredAngularVelocity /Time.fixedDeltaTime;
-  	rigidbody2D.AddTorque(torque);
+  	rigidbody2D.AddTorque(torque);*/
 }
 
 function Beat(beat : int) {
+	if (beatActivation) {
 		if ((beat + offset)%freq == 0) {
 			rotate = true;	
 			++cont;
@@ -69,9 +69,9 @@ function Beat(beat : int) {
 			}
 			//NewGamePlay
 		}
-		
+	}
 	
-
+	beatActivation = activated;
 }
 
 function ChangeFrequency(frequency : float) {
@@ -82,6 +82,6 @@ function changeBeat(b : boolean){
 	activate = b;
 }
 
-function changeActivation(){
+function OnMouseDown(){
 	if(beatActivation == activated) beatActivation = !activated;
 }
