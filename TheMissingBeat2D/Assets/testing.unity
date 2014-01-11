@@ -1111,13 +1111,9 @@ Transform:
   m_LocalPosition: {x: -4.20622015, y: 5.7699337, z: -.00537109375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-<<<<<<< HEAD
-  - {fileID: 2012536104}
-=======
   - {fileID: 299180361}
   - {fileID: 2012536104}
   - {fileID: 320476590}
->>>>>>> eba563e63e0be050a145d7b05df4e9b71cbce896
   m_Father: {fileID: 0}
 --- !u!1 &878561932
 GameObject:
