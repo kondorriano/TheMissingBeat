@@ -1,5 +1,8 @@
 ﻿#pragma strict
 
+@script RequireComponent(Rigidbody2D)
+@script RequireComponent(HingeJoint2D)
+
 //El script que hace rotar diferentes engranajes
 //NewGamePlay
 public var activated : boolean = true;
@@ -12,7 +15,7 @@ public var offset : int = 0;
 
 public var dientes : float = 4;
 public var sentido : int = 1;
-public var speed : float = 60;
+public var speed : float = 1;
 
 private var rotate : boolean = false;
 private var grados : float = 45;
@@ -37,21 +40,39 @@ function Start () {
 	beatActivation = activated;
 
 	initAngle = 0;
+	
+	// Init Hinge Joint
+	var joint : GameObject = GameObject.Instantiate(Resources.Load("GearJoint"), transform.position, Quaternion());
+	GetComponent(HingeJoint2D).connectedBody = joint.rigidbody2D;
 }
 private var test : int = 0;
 
 function Update () {
 	if(Input.GetKeyDown(KeyCode.Space)) Beat(++test);
-	transform.rotation = Quaternion.Slerp(transform.rotation, nextRotation, Time.deltaTime*speed);
 	
-	/*var nextStep : float  = transform.rotation.z + rigidbody2D.angularVelocity*Time.fixedDeltaTime;
-    var totalRotation : float = nextAngle - nextStep;
-  	while ( totalRotation < -180 * Mathf.Deg2Rad ) totalRotation += 360 * Mathf.Deg2Rad;
- 	while ( totalRotation >  180 * Mathf.Deg2Rad ) totalRotation -= 360 * Mathf.Deg2Rad;
-  	
-  	var desiredAngularVelocity : float = totalRotation/Time.fixedDeltaTime;
-  	var torque : float = desiredAngularVelocity /Time.fixedDeltaTime;
-  	rigidbody2D.AddTorque(torque);*/
+}
+
+function FixedUpdate() {
+	// Old way
+	//transform.rotation = Quaternion.Slerp(transform.rotation, nextRotation, Time.deltaTime*speed);
+
+	// New Way
+	var nextStep : float  = transform.eulerAngles.z + rigidbody2D.angularVelocity*Time.fixedDeltaTime;
+    var nextRotation : float = nextAngle - nextStep;
+  	if ( nextRotation  < -180 ) nextRotation += 360;
+ 	if ( nextRotation  >  180 ) nextRotation -= 360;
+ 	
+ 	if (nextRotation*sentido < 0) {
+ 		transform.eulerAngles = Vector3(0,0,nextAngle);
+ 		rigidbody2D.angularVelocity = 0;
+ 	}
+ 	else {
+	  	var desiredAngularVelocity : float = nextRotation / Time.fixedDeltaTime;
+	  	
+	  	rigidbody2D.angularVelocity = Mathf.Lerp(rigidbody2D.angularVelocity, desiredAngularVelocity, Time.fixedDeltaTime*speed/10);
+	  	//var torque : float = desiredAngularVelocity /Time.fixedDeltaTime;
+	  	//rigidbody2D.AddTorque(torque);
+	}
 }
 
 function Beat(beat : int) {
