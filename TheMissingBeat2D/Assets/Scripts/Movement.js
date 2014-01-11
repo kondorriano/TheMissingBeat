@@ -14,7 +14,7 @@ private var fixTime : float = 0;
 public var minFixTime : float = 1;
 
 function Start () {
-	rigidbody.maxAngularVelocity = maxAngularSpeed;
+	//rigidbody.maxAngularVelocity = maxAngularSpeed;
 }
 
 function Update () {
