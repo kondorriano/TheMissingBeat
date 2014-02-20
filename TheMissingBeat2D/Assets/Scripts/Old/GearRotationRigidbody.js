@@ -36,6 +36,17 @@ function Start () {
 
 function Update () {
 	rigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, nextRotation, Time.deltaTime*speed));
+	/*if (Input.GetMouseButton(0)) {    
+    	var wp : Vector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    		Debug.Log(wp);
+
+    	var touchPos : Vector2 = new Vector2(wp.x, wp.y);
+		if (collider2D == Physics2D.OverlapPoint(touchPos)) {
+			changeActivation();
+		}
+			Debug.Log(wp + " " + touchPos + " " + collider2D);
+
+    }*/
 }
 
 function Beat(beat : int) {
