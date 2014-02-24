@@ -77,7 +77,7 @@ function BroadcastBeat(beat : int) {
 
 function BroadcastFrequency(frequency : float)  {
 	beatObjects.BroadcastMessage("ChangeFrequency", frequency);
-	ballObject.SendMessage("ChangeFrequency", frequency);
+	//ballObject.SendMessage("ChangeFrequency", frequency);
 
 	changedFrequency = true;
 }

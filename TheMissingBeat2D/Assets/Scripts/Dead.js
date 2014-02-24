@@ -16,10 +16,11 @@ function Update() {
 	}
 }
 
-function OnTriggerEnter(c : Collider) {
+function OnTriggerEnter2D(c : Collider2D) {
 	if(c.gameObject.tag == "SavePoint") {
 		savePoint = c.transform.position;
-		savePoint.y += 0.5;
+		c.gameObject.renderer.material.color = Color(1,1,1,1);
+		//savePoint.y += 0.5;
 	}
 }
 

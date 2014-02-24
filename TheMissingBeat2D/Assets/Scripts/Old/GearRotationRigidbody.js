@@ -50,7 +50,7 @@ function Update () {
 }
 
 function Beat(beat : int) {
-	if(activated && beatActivation) {
+	if(beatActivation) {
 		if ((beat + offset)%freq == 0) {
 			rotate = true;	
 			++cont;
@@ -76,4 +76,8 @@ function changeBeat(b : boolean){
 
 function changeActivation(){
 	if(beatActivation == activated) beatActivation = !activated;
+}
+
+function getActivation() : boolean {
+	return beatActivation;
 }

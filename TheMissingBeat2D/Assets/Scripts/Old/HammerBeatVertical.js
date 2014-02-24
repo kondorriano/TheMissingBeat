@@ -28,6 +28,8 @@ function Start () {
 	originalPos = transform.position;
 	//NewGP
 	beatActivation = activated;
+	//if(beatActivation) renderer.material.color = Color.green;
+	//else renderer.material.color = Color.red;
 
 }
 
@@ -46,7 +48,7 @@ function FixedUpdate () {
 }
 
 function Beat (beat : int) {
-	if(activated && beatActivation){
+	if(beatActivation){
 		if ((beat + offset)%freq == 0) {
 			move = true;
 			
@@ -79,4 +81,8 @@ function changeBeat(b : boolean){
 
 function changeActivation(){
 	if(beatActivation == activated) beatActivation = !activated;
+}
+
+function getActivation() : boolean {
+	return beatActivation;
 }
