@@ -9688,12 +9688,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1174488573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 262b0a1a6b9d4744da58e8fea2b9eff4, type: 3}
+  m_Script: {fileID: 11500000, guid: 81dac9f50205cdd4990cd62c2f2aa1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  finish: {fileID: 0}
-  timeFactor: .5
-  timeOffset: 1
   audioM: {fileID: 1174488579}
 --- !u!114 &1174488581
 MonoBehaviour:
@@ -12448,6 +12445,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 21200000, guid: 28ae6de7efb1e484ebf19d86435729fb, type: 2}
       propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 28ae6de7efb1e484ebf19d86435729fb, type: 2}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

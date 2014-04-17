@@ -18,6 +18,8 @@ private var contraTempo : boolean = false;
 function Start () {
 	beatObjects = GameObject.FindGameObjectWithTag("BeatMaster");
 	player = GameObject.FindGameObjectWithTag("Player");
+	player.SendMessage("SetBeatLength", GetBeatLength());
+	
 	audioM.Play();
 	
 	player.SendMessage("SetTimeBetweenBeats", 60.0f/beatsPerMinute);
@@ -42,4 +44,9 @@ function Update () {
 function BroadcastBeat(beatCount : int) {
 	beatObjects.BroadcastMessage("Beat", beatCount);
 	player.SendMessage("Beat", beatCount);
+}
+
+
+function GetBeatLength() : float {
+	return beatsPerMinute/60.0f;
 }
