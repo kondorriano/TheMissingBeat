@@ -20,6 +20,7 @@ function OnTriggerEnter(c : Collider) {
 	if(c.gameObject.tag == "SavePoint") {
 		savePoint = c.transform.position;
 		savePoint.y += 0.5;
+		c.BroadcastMessage("activateBeat");
 	}
 }
 

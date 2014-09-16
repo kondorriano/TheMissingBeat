@@ -8,6 +8,8 @@ public var radius : float = 5;
 public var speed : float = 5;
 
 private var wantedPos : Vector3;
+public var displacement : Vector2;
+
 
 function Start () {
 	player = GameObject.FindGameObjectWithTag("Player");
@@ -15,7 +17,7 @@ function Start () {
 
 function Update () {
 	if (player) {
-		wantedPos = player.transform.position;
+		wantedPos = player.transform.position + Vector3(displacement.x, displacement.y, 0);
 		wantedPos.z = transform.position.z;
 	}
 	

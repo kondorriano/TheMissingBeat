@@ -5,17 +5,23 @@
 public var freq : int = 1;
 public var speed : float = 8;
 public var expand : float = 2;
+public var shrink : float = 1;
 private var heartbeat : boolean = false;
 private var escala : Vector3;
 
-/**NEW**/
-public var beatWave : Rigidbody;
+public var activated : boolean = true;
+private var myColor : Color;
 
-private var bWTrigger : GameObject;
+/**NEW**/
+//public var beatWave : Rigidbody;
+
+//private var bWTrigger : GameObject;
 
 function Start() {
 	escala = transform.localScale;
-	bWTrigger = GameObject.FindGameObjectWithTag("waveTrigger");
+//	bWTrigger = GameObject.FindGameObjectWithTag("waveTrigger");
+	myColor = renderer.material.color;
+	if(!activated)renderer.material.color = myColor*0.7;
 
 }
 
@@ -30,7 +36,7 @@ function Update () {
 	}
 	*/
 	if(heartbeat){
-		transform.localScale -= Vector3(1,1,1)*Time.deltaTime*speed;
+		transform.localScale -= Vector3(1,1,1)*shrink*Time.deltaTime*speed;
 		if(transform.localScale.x <= escala.x) {
 			transform.localScale = escala;
 			heartbeat = false;
@@ -39,13 +45,15 @@ function Update () {
 }
 
 function Beat(beat : int) {
-	if ((beat)%freq == 0) {
-		heartbeat = true;
-		transform.localScale += Vector3(1,1,1)*expand;
-		var bW : Rigidbody = Instantiate(beatWave, transform.position, beatWave.transform.rotation); //NEW
-		bWTrigger.SendMessage("setWave", bW.gameObject);
+	if(activated) {
+		if ((beat)%freq == 0) {
+			heartbeat = true;
+			transform.localScale += Vector3(1,1,1)*expand;
+			//var bW : Rigidbody = Instantiate(beatWave, transform.position, beatWave.transform.rotation); //NEW
+			//bWTrigger.SendMessage("setWave", bW.gameObject);
 
-		bW.velocity = transform.parent.rigidbody.velocity;//NEW
+			//bW.velocity = transform.parent.rigidbody.velocity;//NEW
+		}
 	}
 	
 
@@ -54,15 +62,20 @@ function Beat(beat : int) {
 function Beat() {
 	heartbeat = true;
 	transform.localScale += Vector3(1,1,1)*expand;
-	var bW : Rigidbody = Instantiate(beatWave, transform.position, beatWave.transform.rotation); //NEW
-	bWTrigger.SendMessage("setWave", bW.gameObject);
+	//var bW : Rigidbody = Instantiate(beatWave, transform.position, beatWave.transform.rotation); //NEW
+	//bWTrigger.SendMessage("setWave", bW.gameObject);
 
-	bW.velocity = transform.parent.rigidbody.velocity;//NEW
+	//bW.velocity = transform.parent.rigidbody.velocity;//NEW
 	
 
 }
 
 function ChangeFrequency(frequency : float) {
 	freq = frequency;
+}
+
+function activateBeat() {
+	activated = true;
+	renderer.material.color = myColor;
 }
 
